@@ -18,15 +18,17 @@ class Api {
     decode(response);
   }
 
-  decode(http.Response response) {
+  List<Video> decode(http.Response response) {
     if (response.statusCode == 200) {
       var decoded = json.decode(response.body);
 
-      List<Video> videos = decoded['items'].map(
+      List<Video> videos = decoded['items'].map<Video>(
           (map){
+            return Video.fromJson(map);
 
           }
-      );
+      ).toList();
+      return videos;
     }
   }
 }
